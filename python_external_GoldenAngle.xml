@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <version>2</version>
+
+    <readers>
+        <reader>
+            <dll>gadgetron_mricore</dll>
+            <classname>GadgetIsmrmrdAcquisitionMessageReader</classname>
+        </reader>
+        <reader>
+            <dll>gadgetron_mricore</dll>
+            <classname>GadgetIsmrmrdWaveformMessageReader</classname>
+        </reader>
+    </readers>
+    <writers>
+        <writer>
+            <dll>gadgetron_mricore</dll>
+            <classname>MRIImageWriter</classname>
+        </writer>
+    </writers>
+
+    <stream>
+        <gadget>
+            <name>NoiseAdjust</name>
+            <dll>gadgetron_mricore</dll>
+            <classname>NoiseAdjustGadget</classname>
+        </gadget>
+        <!--gadget>
+            <name>RemoveROOversampling</name>
+            <dll>gadgetron_mricore</dll>
+            <classname>RemoveROOversamplingGadget</classname>
+        </gadget-->
+        <gadget>
+            <name>PCA</name>
+            <dll>gadgetron_mricore</dll>
+            <classname>PCACoilGadget</classname>
+        </gadget>
+        <gadget>
+            <name>CoilReduction</name>
+            <dll>gadgetron_mricore</dll>
+            <classname>CoilReductionGadget</classname>
+            <property><name>coils_out</name><value>8</value></property>
+        </gadget>
+        <external>
+            <execute name="python_gadget" target="GoldenAnglePythonGadget" type="python"/>
+            
+            <configuration/>
+        </external>
+        <!--gadget>
+            <name>FloatToShortAttrib</name>
+            <dll>gadgetron_mricore</dll>
+            <classname>FloatToUShortGadget</classname>
+
+            <property><name>max_intensity</name><value>32767</value></property>
+            <property><name>min_intensity</name><value>0</value></property>
+            <property><name>intensity_offset</name><value>0</value></property>
+        </gadget-->
+        <!-- ImageArray to images -->
+        <!--gadget>
+            <name>ImageArraySplit</name>
+            <dll>gadgetron_mricore</dll>
+            <classname>ImageArraySplitGadget</classname>
+        </gadget-->
+
+        <!-- after recon processing -->
+        <!--gadget>
+            <name>ComplexToFloatAttrib</name>
+            <dll>gadgetron_mricore</dll>
+            <classname>ComplexToFloatGadget</classname>
+        </gadget-->
+        <!--gadget>
+            <name>ImageFinish</name>
+            <dll>gadgetron_mricore</dll>
+            <classname>ImageFinishGadget</classname>
+        </gadget-->
+    </stream>
+
+</configuration>
